@@ -6,17 +6,19 @@ namespace TextRPG
 {
     public class World : MonoBehaviour
     {
+        
         public Room[,] Dungeon { get; set; }
         public Vector2 Grid;
 
         void Awake()
         {
             Dungeon = new Room[(int)Grid.x, (int)Grid.y];
-            GenerateFloor();
+            StartCoroutine(GenerateFloor());
         }
 
-        public void GenerateFloor()
+        public IEnumerator GenerateFloor() //es para hacer el metodo pero en varios pasos para que no pete los fps
         {
+            Debug.Log("Generating floor");
             for (int x = 0;x < Grid.x;x++)
             {
                 for (int y = 0;y < Grid.y;y++)
@@ -27,6 +29,8 @@ namespace TextRPG
                     };
                 }
             }
+            yield return new WaitForSeconds(2); //espera 5 segundos antes de cargar la salida
+            Debug.Log("Now we have a exit");
             Vector2 exitLocation = new Vector2(Random.Range(0,(int)Grid.x), Random.Range(0, (int)Grid.y));
             Dungeon[(int)exitLocation.x, (int)exitLocation.y].Exit = true;
             Dungeon[(int)exitLocation.x, (int)exitLocation.y].Empty = false;
