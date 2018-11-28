@@ -7,17 +7,18 @@ namespace TextRPG
 {
     public class Journal : MonoBehaviour {
 
-        public static Journal instance { get; set; }
+        public static Journal Instance { get; internal set; }
+        
 
         [SerializeField]
         Text logText;
 
         void Awake()
         {
-            if (instance != null && instance != this)
+            if (Instance != null && Instance != this)
                 Destroy(this.gameObject);
             else
-                instance = this;
+                Instance = this;
         }
 
         public void Log(string text)

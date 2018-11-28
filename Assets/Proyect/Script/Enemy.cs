@@ -6,6 +6,7 @@ namespace TextRPG
 {
     public class Enemy : Character
     {
+
         public string Description { get; set; }
         public override void TakeDamage(int amount)
         {
@@ -15,6 +16,7 @@ namespace TextRPG
 
         public override void Die()
         {
+               
             Debug.Log("Character died, Was enemy");
         }
     }
