@@ -29,7 +29,7 @@ namespace TextRPG
                     };
                 }
             }
-            yield return new WaitForSeconds(2); //espera 5 segundos antes de cargar la salida
+            yield return new WaitForSeconds(1.4f); //espera 5 segundos antes de cargar la salida
             Debug.Log("Now we have a exit");
             Vector2 exitLocation = new Vector2(Random.Range(0,(int)Grid.x), Random.Range(0, (int)Grid.y));
             Dungeon[(int)exitLocation.x, (int)exitLocation.y].Exit = true;

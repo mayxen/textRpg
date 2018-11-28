@@ -8,7 +8,7 @@ namespace TextRPG
     {
         private void Start()
         {
-            Description = "the evil Raccoon";
+            Description = "Evil Raccoon";
             Energy = 10;
             Attack = 5;
             Defence = 3;
