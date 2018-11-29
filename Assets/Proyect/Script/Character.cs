@@ -7,6 +7,7 @@ namespace TextRPG
     public class Character : MonoBehaviour
     {
         public int Energy { get; set; }
+        public int MaxEnerngy{ get; set; }
         public int Attack { get; set; }
         public int Defence { get; set; }
         public int Gold { get; set; }

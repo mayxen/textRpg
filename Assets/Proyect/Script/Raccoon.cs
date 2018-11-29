@@ -8,6 +8,7 @@ namespace TextRPG
     {
         private void Start()
         {
+            MaxEnerngy = 10;
             Description = "Evil Raccoon";
             Energy = 10;
             Attack = 5;

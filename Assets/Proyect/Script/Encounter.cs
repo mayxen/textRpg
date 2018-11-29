@@ -33,13 +33,18 @@ namespace TextRPG
 
         public void StartCombat()
         {
+            
             this.Enemy = player.Room.Enemy;
+            Debug.Log(Enemy.Description);
             dynamicControls[0].interactable = true; //activar atacar
             dynamicControls[1].interactable = true; //activar flee
+            UIController.OnEnemyUpdate(this.Enemy);
+
         }
 
         public void StartChest()
         {
+            
             dynamicControls[3].interactable = true;
         }
 
@@ -112,6 +117,7 @@ namespace TextRPG
             player.Room.Empty = true;
             Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>",Enemy.name,Enemy.Inventory[0],Enemy.Gold));
             player.Investigate();
+            UIController.OnEnemyUpdate(this.Enemy);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace TextRPG
                                            // Use this for initialization
         void Start () {
             Floor = 0;
+            MaxEnerngy = 30;
             Energy = 30;
             Attack = 10;
             Defence = 2;
@@ -21,6 +22,8 @@ namespace TextRPG
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
             this.Room.Empty= true;
             enconter.ResetDynamicControls();
+            UIController.OnPlayerStatChange(this);
+            UIController.OnPlayerInventoryChange(this);
         }
 
         public void Move(int direction)
@@ -80,14 +83,18 @@ namespace TextRPG
 
         public void AddItem(string item)
         {
+            
             Journal.Instance.Log("You were given item: "+item);
             Inventory.Add(item);
+            UIController.OnPlayerInventoryChange(this);
         }
 
         public override void TakeDamage(int amount)
         {
-            Debug.Log("Player takeDamage.");
+            //me falta limitar la vida máxima del jugador
             base.TakeDamage(amount);
+            UIController.OnPlayerStatChange(this);
+            Debug.Log("Player takeDamage.");
         }
 
         public override void Die()

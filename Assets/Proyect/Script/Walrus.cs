@@ -10,6 +10,7 @@ namespace TextRPG
         {
             Description = "the cute Walrus";
             Energy = 15;
+            MaxEnerngy = 15;
             Attack = 3;
             Defence = 5;
             Gold = 30;
