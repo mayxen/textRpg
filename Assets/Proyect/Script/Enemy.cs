@@ -11,16 +11,15 @@ namespace TextRPG
         public override void TakeDamage(int amount)
         {
             base.TakeDamage(amount);
-            Debug.Log("This also happens but only on enemy! not other characters");
-            UIController.OnEnemyUpdate(this);
+            if(Energy != MaxEnerngy)
+                UIController.OnEnemyUpdate(this);
         }
 
         public override void Die()
         {
-            
-            Energy = MaxEnerngy;
-            Debug.Log("Character died, Was enemy");
+            base.Die();
             Encounter.OnEnemyDie();
+            Energy = MaxEnerngy;
         }
     }
 }

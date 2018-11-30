@@ -8,6 +8,7 @@ namespace TextRPG
 
 
     public class EnemyDataBase : MonoBehaviour {
+        
 
         public List<Enemy> Enemies { get; set; } = new List<Enemy>();
         public static EnemyDataBase Instance { get; set; }

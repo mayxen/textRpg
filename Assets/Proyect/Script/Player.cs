@@ -18,10 +18,14 @@ namespace TextRPG
             Defence = 2;
             Gold = 0;
             Inventory = new List<string>();
-            RoomIndex = new Vector2(2,2);
+            RoomIndex = new Vector2(0,0);
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
             this.Room.Empty= true;
             enconter.ResetDynamicControls();
+        }
+
+        void LateUpdate()
+        {
             UIController.OnPlayerStatChange(this);
             UIController.OnPlayerInventoryChange(this);
         }
@@ -32,13 +36,14 @@ namespace TextRPG
             {
                 return;
             }
-
+            Debug.Log(world.Dungeon.GetLength(0));
+            Debug.Log(world.Dungeon.GetLength(0));
             if (direction == 0 && RoomIndex.y > 0)
             {
                 Journal.Instance.Log("You move north");
                 RoomIndex -= Vector2.up;
             }
-            else if (direction== 1 && RoomIndex.y < (world.Dungeon.GetLength(0) - 1))
+            else if (direction== 1 && RoomIndex.x < (world.Dungeon.GetLength(0) - 1))
             {
                 Journal.Instance.Log("You move East");
                 RoomIndex += Vector2.right;
@@ -53,8 +58,9 @@ namespace TextRPG
                 Journal.Instance.Log("You move West");
                 RoomIndex += Vector2.left;
             }
-            if(this.Room.RoomIndex != RoomIndex)
+            if(this.Room.RoomIndex != RoomIndex || RoomIndex.y > (world.Dungeon.GetLength(0) - 1) || RoomIndex.y > (world.Dungeon.GetLength(1) - 1))
                 Investigate();
+            Debug.Log(this.Room.RoomIndex);
         }
 
         public void Investigate()
@@ -63,6 +69,7 @@ namespace TextRPG
             if (this.Room.Empty)
             {
                 Journal.Instance.Log("You find yourself in an empty room");
+                enconter.ResetDynamicControls();
             }
             else if (this.Room.Chest!= null)
             {
@@ -78,6 +85,7 @@ namespace TextRPG
             {
                 enconter.StartExit();
                 Journal.Instance.Log("You've found the exit! What would you want to do?");
+                
             }
         }
 
@@ -94,12 +102,10 @@ namespace TextRPG
             //me falta limitar la vida máxima del jugador
             base.TakeDamage(amount);
             UIController.OnPlayerStatChange(this);
-            Debug.Log("Player takeDamage.");
         }
 
         public override void Die()
         {
-            Debug.Log("Player Die.");
             base.Die();
         }
 

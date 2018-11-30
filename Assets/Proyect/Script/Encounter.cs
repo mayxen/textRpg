@@ -35,7 +35,6 @@ namespace TextRPG
         {
             
             this.Enemy = player.Room.Enemy;
-            Debug.Log(Enemy.Description);
             dynamicControls[0].interactable = true; //activar atacar
             dynamicControls[1].interactable = true; //activar flee
             UIController.OnEnemyUpdate(this.Enemy);
@@ -103,6 +102,7 @@ namespace TextRPG
             Journal.Instance.Log("<color=#59ffa1>You flee the combat but you take <b>" + enemyDamageAmount + "</b> damage!</color>");
             player.Room.Enemy = null;
             player.Investigate();
+            ResetDynamicControls();
         }
 
         public void ExitFloor()
@@ -110,6 +110,8 @@ namespace TextRPG
             StartCoroutine(player.world.GenerateFloor());
             player.Floor += 1;
             Journal.Instance.Log("You found an exit to another floor. Floor: " + player.Floor);
+            ResetDynamicControls();
+            
         }
 
         public void Loot()
@@ -120,9 +122,9 @@ namespace TextRPG
             player.Room.Empty = true;
             Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>", Enemy.Description, Enemy.Inventory[0], Enemy.Gold));
             this.Enemy = null;
-            
             player.Investigate();
             UIController.OnEnemyUpdate(this.Enemy);
+            ResetDynamicControls();
         }
     }
 }

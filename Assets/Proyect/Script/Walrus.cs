@@ -8,7 +8,7 @@ namespace TextRPG
     {
         private void Start()
         {
-            Description = "the cute Walrus";
+            Description = "cute Walrus";
             Energy = 15;
             MaxEnerngy = 15;
             Attack = 3;
