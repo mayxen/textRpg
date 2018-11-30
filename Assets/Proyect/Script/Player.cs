@@ -28,7 +28,7 @@ namespace TextRPG
 
         public void Move(int direction)
         {
-            if (this.Room.Enemy)
+            if (this.Room.Enemy && !this.Room.Empty)
             {
                 return;
             }

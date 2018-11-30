@@ -78,6 +78,8 @@ namespace TextRPG
                 player.Gold += chest.Gold;
                 player.AddItem(chest.Item);
                 Journal.Instance.Log("You found : "+chest.Item + " and <color= #ffe556ff> "+chest.Gold +"g</color>");
+                UIController.OnPlayerInventoryChange(player);
+                UIController.OnPlayerStatChange(player);
             }
             player.Room.Chest = null;
             dynamicControls[3].interactable = false;
@@ -97,6 +99,7 @@ namespace TextRPG
         {
             int enemyDamageAmount = (int)(Random.value * (Enemy.Attack - player.Defence*1.5f));
             player.TakeDamage(enemyDamageAmount);
+            UIController.OnEnemyUpdate(null);
             Journal.Instance.Log("<color=#59ffa1>You flee the combat but you take <b>" + enemyDamageAmount + "</b> damage!</color>");
             player.Room.Enemy = null;
             player.Investigate();
@@ -115,7 +118,9 @@ namespace TextRPG
             player.Gold += this.Enemy.Gold;
             player.Room.Enemy = null;
             player.Room.Empty = true;
-            Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>",Enemy.name,Enemy.Inventory[0],Enemy.Gold));
+            Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>", Enemy.Description, Enemy.Inventory[0], Enemy.Gold));
+            this.Enemy = null;
+            
             player.Investigate();
             UIController.OnEnemyUpdate(this.Enemy);
         }

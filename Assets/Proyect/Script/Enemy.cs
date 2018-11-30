@@ -17,9 +17,10 @@ namespace TextRPG
 
         public override void Die()
         {
-            Encounter.OnEnemyDie();
+            
             Energy = MaxEnerngy;
             Debug.Log("Character died, Was enemy");
+            Encounter.OnEnemyDie();
         }
     }
 }

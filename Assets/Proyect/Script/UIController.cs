@@ -18,7 +18,7 @@ namespace TextRPG
             OnPlayerStatChange += UpdatePlayerStats;
             OnPlayerInventoryChange += UpdatePlayerInventory;
             OnEnemyUpdate += UpdateEnemyStats;
-            playerInventoryText.text = "Items: ";
+            
         }
         public void UpdatePlayerStats(Player player)
         {
@@ -27,6 +27,7 @@ namespace TextRPG
 
         public void UpdatePlayerInventory(Player player)
         {
+            playerInventoryText.text = "Items: ";
             foreach (string item in player.Inventory)
             {
                 playerInventoryText.text += item+"/ ";
