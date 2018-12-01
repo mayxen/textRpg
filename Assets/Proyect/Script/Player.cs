@@ -5,23 +5,52 @@ using UnityEngine;
 namespace TextRPG
 {
     public class Player : Character{
+        
         public int Floor { get; set; }
         public Room Room { get; set; }
         public World world;
         [SerializeField] Encounter enconter;
                                            // Use this for initialization
         void Start () {
+            
             Floor = 0;
             MaxEnerngy = 30;
             Energy = 30;
-            Attack = 10;
-            Defence = 2;
+            Attack = 6;
+            Defence = 1;
             Gold = 0;
             Inventory = new List<string>();
             RoomIndex = new Vector2(0,0);
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
             this.Room.Empty= true;
             enconter.ResetDynamicControls();
+        }
+
+        public void UpdateStats()
+        {
+            //en el futuro me gustaría saber a que enemigo he derrotado para según cual me de vida máxima, o ataque o defensa el enemigo está en la habitación Room
+            if (Gold - 10 > 0)
+            {
+                switch (Random.Range(0,3))
+                {
+                    case 0:
+                        TakeDamage(-5);
+                        Journal.Instance.Log("You heal 5 energy");
+                        break;
+                    case 1:
+                        Attack++;
+                        Journal.Instance.Log("Now you are strongest");
+                        break;
+                    case 2:
+                        Journal.Instance.Log("You learn how to defend yourself better");
+                        Defence++;
+                        break;
+                }
+            }
+                    
+                 
+
+            
         }
 
         void LateUpdate()
@@ -60,7 +89,7 @@ namespace TextRPG
             }
             if(this.Room.RoomIndex != RoomIndex || RoomIndex.y > (world.Dungeon.GetLength(0) - 1) || RoomIndex.y > (world.Dungeon.GetLength(1) - 1))
                 Investigate();
-            Debug.Log(this.Room.RoomIndex);
+            
         }
 
         public void Investigate()

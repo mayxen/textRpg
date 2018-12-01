@@ -11,10 +11,10 @@ namespace TextRPG
             MaxEnerngy = 10;
             Description = "Evil Raccoon";
             Energy = 10;
-            Attack = 5;
-            Defence = 3;
+            Attack = 3;
+            Defence = 5;
             Gold = 20;
-            Inventory.Add("Bandit Mask");
+            Inventory.Add("R");
         }
     }
 }

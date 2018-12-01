@@ -19,6 +19,7 @@ namespace TextRPG
         {
             base.Die();
             Encounter.OnEnemyDie();
+
             Energy = MaxEnerngy;
         }
     }

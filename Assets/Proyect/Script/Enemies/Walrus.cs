@@ -11,10 +11,10 @@ namespace TextRPG
             Description = "cute Walrus";
             Energy = 15;
             MaxEnerngy = 15;
-            Attack = 3;
-            Defence = 5;
+            Attack = 7;
+            Defence = 0;
             Gold = 30;
-            Inventory.Add("Tooth");
+            Inventory.Add("W");
         }
     }
 }

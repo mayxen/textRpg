@@ -35,6 +35,7 @@ namespace TextRPG
         {
             
             this.Enemy = player.Room.Enemy;
+            ResetDynamicControls();
             dynamicControls[0].interactable = true; //activar atacar
             dynamicControls[1].interactable = true; //activar flee
             UIController.OnEnemyUpdate(this.Enemy);
@@ -86,8 +87,8 @@ namespace TextRPG
 
         public void Attack()
         {
-            int playerDamageAmount = (int)(Random.value * (player.Attack - Enemy.Defence));
-            int enemyDamageAmount = (int)(Random.value * (Enemy.Attack - player.Defence));
+            int playerDamageAmount = (int)(Random.value * ((player.Attack - Enemy.Defence)<0 ? 0 : player.Attack - Enemy.Defence));
+            int enemyDamageAmount = (int)(Random.value * ((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence));
             Journal.Instance.Log("<color=#59ffa1>You attacked, dealing <b>"+playerDamageAmount+"</b> damage!</color>");
             Journal.Instance.Log("<color=#59ffa1>The enemy attacked, dealing <b>" + enemyDamageAmount + "</b> damage!</color>");
             player.TakeDamage(enemyDamageAmount);
@@ -96,7 +97,7 @@ namespace TextRPG
 
         public void Flee()
         {
-            int enemyDamageAmount = (int)(Random.value * (Enemy.Attack - player.Defence*1.5f));
+            int enemyDamageAmount = (int)(Random.value * ((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence));
             player.TakeDamage(enemyDamageAmount);
             UIController.OnEnemyUpdate(null);
             Journal.Instance.Log("<color=#59ffa1>You flee the combat but you take <b>" + enemyDamageAmount + "</b> damage!</color>");
@@ -109,7 +110,8 @@ namespace TextRPG
         {
             StartCoroutine(player.world.GenerateFloor());
             player.Floor += 1;
-            Journal.Instance.Log("You found an exit to another floor. Floor: " + player.Floor);
+            Journal.Instance.Log("You found an exit to another floor. Floor: " + player.Floor+ " Now the enemies are strongest");
+            EnemyDataBase.Instance.UpdateEnemies();
             ResetDynamicControls();
             
         }
@@ -118,11 +120,13 @@ namespace TextRPG
         {
             player.AddItem(this.Enemy.Inventory[0]);//cogemos el objeto que da el objeto
             player.Gold += this.Enemy.Gold;
+            player.UpdateStats();
             player.Room.Enemy = null;
             player.Room.Empty = true;
             Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>", Enemy.Description, Enemy.Inventory[0], Enemy.Gold));
             this.Enemy = null;
             player.Investigate();
+            
             UIController.OnEnemyUpdate(this.Enemy);
             ResetDynamicControls();
         }

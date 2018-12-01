@@ -31,5 +31,25 @@ namespace TextRPG
         {
             return Enemies[Random.Range(0, Enemies.Count)];
         }
+
+        public void UpdateEnemies()
+        {
+            foreach (Enemy enemy in GetComponents<Enemy>())
+            {
+                switch (Random.Range(0, 3))
+                {
+                    case 0:
+                        enemy.Attack++;
+                        break;
+                    case 1:
+                        enemy.Defence++;
+                        break;
+                    case 2:
+                        enemy.Energy += 10;
+                        enemy.MaxEnerngy += 10;
+                        break;
+                }
+            }
+        }
     }
 }
