@@ -13,7 +13,7 @@ namespace TextRPG
             Energy = 10;
             Attack = 3;
             Defence = 5;
-            Gold = 20;
+            Gold = 10;
             Inventory.Add("R");
         }
     }

@@ -13,7 +13,7 @@ namespace TextRPG
             MaxEnerngy = 15;
             Attack = 7;
             Defence = 0;
-            Gold = 30;
+            Gold = 10;
             Inventory.Add("W");
         }
     }

@@ -26,5 +26,10 @@ namespace TextRPG
             logText.text += "\n" + text;
         }
 
+        public void Empty()
+        {
+            logText.text = "";
+        }
+
     }
 }

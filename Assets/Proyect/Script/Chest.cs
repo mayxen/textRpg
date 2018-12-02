@@ -29,7 +29,7 @@ namespace TextRPG
                 default:
                     int itemToAdd = Random.Range(0,ItemDataBase.Instance.Items.Count);
                     Item = ItemDataBase.Instance.Items[itemToAdd];
-                    Gold = Random.Range(20,200);
+                    Gold = Random.Range(50,200);
                     break;
             }
             

@@ -21,7 +21,6 @@ namespace TextRPG
             OnPlayerStatChange += UpdatePlayerStats;
             OnPlayerInventoryChange += UpdatePlayerInventory;
             OnEnemyUpdate += UpdateEnemyStats;
-            
         }
 
         public void UpdatePlayerStats(Player player)
@@ -31,11 +30,11 @@ namespace TextRPG
 
         public void UpdatePlayerInventory(Player player)
         {
-            playerInventoryText.text = "Items: ";
-            foreach (string item in player.Inventory)
-            {
-                playerInventoryText.text += item+"/ ";
-            }
+            playerInventoryText.text = "En desarrollo crack ";
+            //foreach (string item in player.Inventory)
+            //{
+            //    playerInventoryText.text += item+"/ ";
+            //}
             
         }
 
@@ -43,7 +42,7 @@ namespace TextRPG
         public void UpdateEnemyStats(Enemy enemy)
         {
             if (enemy != null)
-                enemyStatsText.text = string.Format("{3}: {0} energy, {1} attack,{2} defence", enemy.Energy, enemy.Attack, enemy.Defence, enemy.Description);
+                enemyStatsText.text = string.Format("{3}:\n{0} energy, {1} attack,{2} defence", enemy.Energy, enemy.Attack, enemy.Defence, enemy.Description);
             else
                 enemyStatsText.text = "";
         }

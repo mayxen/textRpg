@@ -39,14 +39,14 @@ namespace TextRPG
                 switch (Random.Range(0, 3))
                 {
                     case 0:
-                        enemy.Attack++;
+                        enemy.Attack+=10;
                         break;
                     case 1:
-                        enemy.Defence++;
+                        enemy.Defence+=7;
                         break;
                     case 2:
-                        enemy.Energy += 10;
-                        enemy.MaxEnerngy += 10;
+                        enemy.Energy += 20;
+                        enemy.MaxEnerngy += 20;
                         break;
                 }
             }

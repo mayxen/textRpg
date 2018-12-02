@@ -13,14 +13,15 @@ namespace TextRPG
         public Player player;
         [SerializeField]
         Button[] dynamicControls;
-
+        public int  Turn{ get; set; }
         public delegate void OnEnemyDieHandler();
         public static OnEnemyDieHandler OnEnemyDie;
 
 
         void Start()
         {
-            OnEnemyDie += Loot; //estamos añadiendo metodos al evento    
+            OnEnemyDie += Loot; //estamos añadiendo metodos al evento   
+            Turn = 0;
         }
 
         public void ResetDynamicControls()
@@ -44,12 +45,13 @@ namespace TextRPG
 
         public void StartChest()
         {
-            
+            ResetDynamicControls();
             dynamicControls[3].interactable = true;
         }
 
         public void StartExit()
         {
+            ResetDynamicControls();
             dynamicControls[2].interactable = true;
         }
 
@@ -81,7 +83,9 @@ namespace TextRPG
                 UIController.OnPlayerInventoryChange(player);
                 UIController.OnPlayerStatChange(player);
             }
+            player.UpdateStats();
             player.Room.Chest = null;
+            player.Room.Empty = true;
             dynamicControls[3].interactable = false;
         }
 
@@ -113,11 +117,14 @@ namespace TextRPG
             Journal.Instance.Log("You found an exit to another floor. Floor: " + player.Floor+ " Now the enemies are strongest");
             EnemyDataBase.Instance.UpdateEnemies();
             ResetDynamicControls();
+            Map.Instance.ResetColors();
+            Map.Instance.ChangeColor(player.RoomIndex, Color.red);
             
         }
 
         public void Loot()
         {
+            Journal.Instance.Empty();
             player.AddItem(this.Enemy.Inventory[0]);//cogemos el objeto que da el objeto
             player.Gold += this.Enemy.Gold;
             player.UpdateStats();
@@ -126,7 +133,6 @@ namespace TextRPG
             Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>", Enemy.Description, Enemy.Inventory[0], Enemy.Gold));
             this.Enemy = null;
             player.Investigate();
-            
             UIController.OnEnemyUpdate(this.Enemy);
             ResetDynamicControls();
         }
