@@ -106,6 +106,7 @@ namespace TextRPG
             UIController.OnEnemyUpdate(null);
             Journal.Instance.Log("<color=#59ffa1>You flee the combat but you take <b>" + enemyDamageAmount + "</b> damage!</color>");
             player.Room.Enemy = null;
+            player.Room.Empty = true;
             player.Investigate();
             ResetDynamicControls();
         }
@@ -119,6 +120,7 @@ namespace TextRPG
             ResetDynamicControls();
             Map.Instance.ResetColors();
             Map.Instance.ChangeColor(player.RoomIndex, Color.red);
+            player.Room.Exit = false;
             
         }
 

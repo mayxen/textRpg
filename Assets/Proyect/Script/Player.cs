@@ -104,36 +104,39 @@ namespace TextRPG
         public void Investigate()
         {
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
-            if (this.Room.Empty)
+            if (this.Room.Exit)
+            {
+                enconter.StartExit();
+                Journal.Instance.Log("You've found the exit! What would you want to do?");
+                
+                
+            }
+            else if (this.Room.Empty)
             {
                 Journal.Instance.Log("You find yourself in an empty room");
                 enconter.ResetDynamicControls();
                 
+                
             }
-            else if (this.Room.Chest!= null)
+            else if (this.Room.Chest != null)
             {
                 enconter.StartChest();
                 Journal.Instance.Log("You've found a chest! What would you want to do?");
                 
-            }
-            else if (this.Room.Enemy!= null)
-            {
-                Journal.Instance.Log("You are jumped by a "+Room.Enemy.Description + " What would you want to do?");
-                enconter.StartCombat();
                 
             }
-            else if (this.Room.Exit)
+            else if (this.Room.Enemy != null)
             {
-                enconter.StartExit();
-                Journal.Instance.Log("You've found the exit! What would you want to do?");
+                Journal.Instance.Log("You are jumped by a " + Room.Enemy.Description + " What would you want to do?");
+                enconter.StartCombat();
             }
         }
 
         public void AddItem(string item)
         {
             
-            Journal.Instance.Log("You were given item: "+item);
-            Inventory.Add(item);
+            //Journal.Instance.Log("You were given item: "+item);
+            //Inventory.Add(item);
             UIController.OnPlayerInventoryChange(this);
         }
 
