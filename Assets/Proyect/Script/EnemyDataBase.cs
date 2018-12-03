@@ -39,16 +39,25 @@ namespace TextRPG
                 switch (Random.Range(0, 3))
                 {
                     case 0:
-                        enemy.Attack+=10;
+                        enemy.Attack+=5;
+                        enemy.Defence += 5;
+                        enemy.Energy += 10;
+                        enemy.MaxEnerngy += 10;
                         break;
                     case 1:
+                        enemy.Attack += 7;
                         enemy.Defence+=7;
+                        enemy.Energy += 5;
+                        enemy.MaxEnerngy += 5;
                         break;
                     case 2:
+                        enemy.Attack += 3;
+                        enemy.Defence += 3;
                         enemy.Energy += 20;
                         enemy.MaxEnerngy += 20;
                         break;
                 }
+                enemy.Gold += Random.Range(10,30); ;
             }
         }
     }

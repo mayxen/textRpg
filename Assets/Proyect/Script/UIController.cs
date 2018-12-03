@@ -21,11 +21,13 @@ namespace TextRPG
             OnPlayerStatChange += UpdatePlayerStats;
             OnPlayerInventoryChange += UpdatePlayerInventory;
             OnEnemyUpdate += UpdateEnemyStats;
+            playerInventoryText.text = "";
+            enemyStatsText.text = "";
         }
 
         public void UpdatePlayerStats(Player player)
         {
-            playerStatText.text = string.Format("Player: {0} energy, {1} attack,{2} defence, {3} gold, Room: {4}", player.Energy,player.Attack,player.Defence,player.Gold,player.Room.RoomIndex);
+            playerStatText.text = string.Format("Player: {0} energy, {1} attack,{2} defence, {3} gold, Room: {4}",player.Energy,player.Attack,player.Defence,player.Gold,player.Room.RoomIndex);
         }
 
         public void UpdatePlayerInventory(Player player)

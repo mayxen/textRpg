@@ -91,8 +91,8 @@ namespace TextRPG
 
         public void Attack()
         {
-            int playerDamageAmount = (int)(Random.value * ((player.Attack - Enemy.Defence)<0 ? 0 : player.Attack - Enemy.Defence));
-            int enemyDamageAmount = (int)(Random.value * ((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence));
+            int playerDamageAmount = (Random.Range(0, (int)((player.Attack - Enemy.Defence)<0 ? 0 : player.Attack - Enemy.Defence)));
+            int enemyDamageAmount = (Random.Range(0, (int)((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence)));
             Journal.Instance.Log("<color=#59ffa1>You attacked, dealing <b>"+playerDamageAmount+"</b> damage!</color>");
             Journal.Instance.Log("<color=#59ffa1>The enemy attacked, dealing <b>" + enemyDamageAmount + "</b> damage!</color>");
             player.TakeDamage(enemyDamageAmount);
@@ -101,7 +101,8 @@ namespace TextRPG
 
         public void Flee()
         {
-            int enemyDamageAmount = (int)(Random.value * ((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence));
+            Journal.Instance.Empty();
+            int enemyDamageAmount = (Random.Range(0, (int)((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence)));
             player.TakeDamage(enemyDamageAmount);
             UIController.OnEnemyUpdate(null);
             Journal.Instance.Log("<color=#59ffa1>You flee the combat but you take <b>" + enemyDamageAmount + "</b> damage!</color>");
@@ -109,10 +110,12 @@ namespace TextRPG
             player.Room.Empty = true;
             player.Investigate();
             ResetDynamicControls();
+            
         }
 
         public void ExitFloor()
         {
+            Journal.Instance.Empty();
             StartCoroutine(player.world.GenerateFloor());
             player.Floor += 1;
             Journal.Instance.Log("You found an exit to another floor. Floor: " + player.Floor+ " Now the enemies are strongest");

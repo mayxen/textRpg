@@ -16,8 +16,7 @@ namespace TextRPG
             else
                 Instance = this;
 
-            Items.Add("Emerald Slipper");
-            Items.Add("Empty bottle");
+            
             Items.Add("The real nothing");
         }
     }

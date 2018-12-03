@@ -17,7 +17,7 @@ namespace TextRPG
         {
             switch (Random.Range(0, 7))
             {
-                case 0:case 1:
+                case 1:
                     Trap = true;
                     break;
                 case 2:case 3:

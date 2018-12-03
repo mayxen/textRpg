@@ -33,6 +33,8 @@ namespace TextRPG
             Debug.Log("Now we have a exit");
             Vector2 exitLocation = new Vector2(Random.Range(0,(int)Grid.x), Random.Range(0, (int)Grid.y));
             Dungeon[(int)exitLocation.x, (int)exitLocation.y].Empty = false;
+            Dungeon[(int)exitLocation.x, (int)exitLocation.y].Enemy = null;
+            Dungeon[(int)exitLocation.x, (int)exitLocation.y].Chest = null;
             Dungeon[(int)exitLocation.x, (int)exitLocation.y].Exit = true;
             Debug.Log("Exit: " + exitLocation);
         }

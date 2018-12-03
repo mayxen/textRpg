@@ -63,7 +63,7 @@ namespace TextRPG
 
         public void Move(int direction)
         {
-            if (Room.Enemy != null)
+            if (Room.Enemy != null && Room.Empty==false)
             {
                 return;
             }
