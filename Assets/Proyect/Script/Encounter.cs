@@ -61,16 +61,16 @@ namespace TextRPG
             if (chest.Trap)
             {
                 player.TakeDamage(5);
-                Journal.Instance.Log("It was a trap, you took 5 damage");
+                Journal.Instance.Log(string.Format("<color=#59ffa1>It was a trap, you took 5 damage</color>"));
             }
             else if(chest.Heal)
             {
-                Journal.Instance.Log("It was a heal, you heal 5 energy");
+                Journal.Instance.Log(string.Format("<color=#59ffa1>It was a heal, you heal 5 energy</color>"));
                 player.TakeDamage(-5);
             }
             else if (chest.Enemy)
             {
-                Journal.Instance.Log("Oh no! The chest contained a monster");
+                Journal.Instance.Log(string.Format("<color=#59ffa1>Oh no! The chest contained a monster</color>"));
                 player.Room.Enemy = chest.Enemy;
                 player.Room.Chest = null;
                 player.Investigate();
@@ -79,7 +79,7 @@ namespace TextRPG
             {
                 player.Gold += chest.Gold;
                 player.AddItem(chest.Item);
-                Journal.Instance.Log("You found : "+chest.Item + " and <color= #ffe556ff> "+chest.Gold +"g</color>");
+                Journal.Instance.Log(string.Format("<color= #ffe556ff>You found : {0}and  {1}g", chest.Item,chest.Gold));
                 UIController.OnPlayerInventoryChange(player);
                 UIController.OnPlayerStatChange(player);
             }
@@ -91,10 +91,10 @@ namespace TextRPG
 
         public void Attack()
         {
-            int playerDamageAmount = (Random.Range(0, (int)((player.Attack - Enemy.Defence)<0 ? 0 : player.Attack - Enemy.Defence)));
-            int enemyDamageAmount = (Random.Range(0, (int)((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence)));
-            Journal.Instance.Log("<color=#59ffa1>You attacked, dealing <b>"+playerDamageAmount+"</b> damage!</color>");
-            Journal.Instance.Log("<color=#59ffa1>The enemy attacked, dealing <b>" + enemyDamageAmount + "</b> damage!</color>");
+            int playerDamageAmount =Random.Range((player.Attack - Enemy.Defence)-10 > 0 ? (player.Attack - Enemy.Defence) - 10 : 0, (player.Attack - Enemy.Defence)<0 ? 0 : player.Attack - Enemy.Defence+1);
+            int enemyDamageAmount =Random.Range((Enemy.Attack - player.Defence) - 10 > 0 ? (Enemy.Attack - player.Defence) - 10 : 0, (Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence+1);
+            Journal.Instance.Log(string.Format("<color=#59ffa1>You attacked, dealing <b>{0}</b> damage!</color>", playerDamageAmount));
+            Journal.Instance.Log(string.Format("<color=#59ffa1>The enemy attacked, dealing <b>{0}</b> damage!</color>", enemyDamageAmount));
             player.TakeDamage(enemyDamageAmount);
             Enemy.TakeDamage(playerDamageAmount);
         }
@@ -102,10 +102,10 @@ namespace TextRPG
         public void Flee()
         {
             Journal.Instance.Empty();
-            int enemyDamageAmount = (Random.Range(0, (int)((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence)));
+            int enemyDamageAmount = Random.Range(0,((Enemy.Attack - player.Defence) < 0 ? 0 : Enemy.Attack - player.Defence)+1);
             player.TakeDamage(enemyDamageAmount);
             UIController.OnEnemyUpdate(null);
-            Journal.Instance.Log("<color=#59ffa1>You flee the combat but you take <b>" + enemyDamageAmount + "</b> damage!</color>");
+            Journal.Instance.Log(string.Format("<color=#59ffa1>You flee the combat but you take <b>{0}</b> damage!</color>", enemyDamageAmount));
             player.Room.Enemy = null;
             player.Room.Empty = true;
             player.Investigate();
@@ -118,7 +118,7 @@ namespace TextRPG
             Journal.Instance.Empty();
             StartCoroutine(player.world.GenerateFloor());
             player.Floor += 1;
-            Journal.Instance.Log("You found an exit to another floor. Floor: " + player.Floor+ " Now the enemies are strongest");
+            Journal.Instance.Log(string.Format("<color=#baba4a>You found an exit to another floor. Floor:{0} Now the enemies are stronger</color>", player.Floor));
             EnemyDataBase.Instance.UpdateEnemies();
             ResetDynamicControls();
             Map.Instance.ResetColors();
@@ -135,7 +135,7 @@ namespace TextRPG
             player.UpdateStats();
             player.Room.Enemy = null;
             player.Room.Empty = true;
-            Journal.Instance.Log(string.Format("<color=#59ffa1>You've slain {0}. Searching the carcass, you find a {1} and {2} gold!</color>", Enemy.Description, Enemy.Inventory[0], Enemy.Gold));
+            Journal.Instance.Log(string.Format("<color=#59ffa1> You've slain {0}. Searching the carcass, you find a {1} and {2} gold! </color>", Enemy.Description, Enemy.Inventory[0], Enemy.Gold));
             this.Enemy = null;
             player.Investigate();
             UIController.OnEnemyUpdate(this.Enemy);

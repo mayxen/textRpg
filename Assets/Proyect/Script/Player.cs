@@ -45,7 +45,7 @@ namespace TextRPG
                         break;
                     case 1:
                         Attack++;
-                        Journal.Instance.Log("Now you are strongest");
+                        Journal.Instance.Log("Now you are stronger");
                         break;
                     case 2:
                         Journal.Instance.Log("You learn how to defend yourself better");
