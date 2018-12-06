@@ -12,7 +12,7 @@ namespace TextRPG
             Energy = 40;
             MaxEnerngy = 40;
             Attack = 3;
-            Defence = 3;
+            Defense = 3;
             Gold = 10;
             Inventory.Add("WH");
         }

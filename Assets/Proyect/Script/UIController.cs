@@ -8,26 +8,35 @@ namespace TextRPG
     public class UIController : MonoBehaviour {
         [SerializeField]
         Text playerStatText,enemyStatsText,playerInventoryText;
+        [SerializeField]
+        Image updateStat;
         
         public delegate void OnPlayerUpdateHandler(Player player);
         public static OnPlayerUpdateHandler OnPlayerStatChange;
         public static OnPlayerUpdateHandler OnPlayerInventoryChange;
+        public static OnPlayerUpdateHandler OnPlayerUpdateActivate;
+        public static OnPlayerUpdateHandler OnPlayerUpdateDesactivate;
 
         public delegate void OnEnemyUpdateHandler(Enemy enemy);
         public static OnEnemyUpdateHandler OnEnemyUpdate;
+
+        public delegate void OnPlayerUpdateStatHandler();
+        
 
         void Start()
         {
             OnPlayerStatChange += UpdatePlayerStats;
             OnPlayerInventoryChange += UpdatePlayerInventory;
             OnEnemyUpdate += UpdateEnemyStats;
+            OnPlayerUpdateActivate += ActivateUpdateStat;
+            OnPlayerUpdateDesactivate += DesactivateUpdateStat;
             playerInventoryText.text = "";
             enemyStatsText.text = "";
         }
 
         public void UpdatePlayerStats(Player player)
         {
-            playerStatText.text = string.Format("Player: {0} energy, {1} attack,{2} defence, {3} gold, Room: {4}",player.Energy,player.Attack,player.Defence,player.Gold,player.Room.RoomIndex);
+            playerStatText.text = string.Format("Player: {0} energy, {1} attack,{2} Defense, {3} gold, Room: {4}",player.Energy,player.Attack,player.Defense,player.Gold,player.Room.RoomIndex);
         }
 
         public void UpdatePlayerInventory(Player player)
@@ -44,9 +53,29 @@ namespace TextRPG
         public void UpdateEnemyStats(Enemy enemy)
         {
             if (enemy != null)
-                enemyStatsText.text = string.Format("{3}:\n{0} energy, {1} attack,{2} defence", enemy.Energy, enemy.Attack, enemy.Defence, enemy.Description);
+                enemyStatsText.text = string.Format("{3}:\n{0} energy, {1} attack,{2} Defense", enemy.Energy, enemy.Attack, enemy.Defense, enemy.Description);
             else
                 enemyStatsText.text = "";
+        }
+
+        public void ActivateUpdateStat(Player player)
+        {
+            if (player.Gold - player.StatCost >= 0)
+            {
+                updateStat.gameObject.SetActive(true);
+
+                updateStat.GetComponentsInChildren<Text>()[0].text = string.Format("Increase 10 your maximun energy\n cost {0}",player.StatCost);
+                updateStat.GetComponentsInChildren<Text>()[1].text = string.Format("Increase 1 your attack\n cost {0}", player.StatCost);
+                updateStat.GetComponentsInChildren<Text>()[2].text = string.Format("Increase 1 your defense\n cost {0}", player.StatCost);
+
+
+            }
+            
+        }
+
+        public void DesactivateUpdateStat(Player player)
+        {
+            updateStat.gameObject.SetActive(false);
         }
     }
 }

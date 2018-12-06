@@ -11,8 +11,9 @@ namespace TextRPG
         public bool Trap { get; set; }
         public bool Heal { get; set; }
         public Enemy Enemy { get; set; }
+        public int MaxGold { get; set; } = 100 * Player.Floor;
 
-        
+
         public Chest()
         {
             switch (Random.Range(0, 7))
@@ -29,10 +30,11 @@ namespace TextRPG
                 default:
                     int itemToAdd = Random.Range(0,ItemDataBase.Instance.Items.Count);
                     Item = ItemDataBase.Instance.Items[itemToAdd];
-                    Gold = Random.Range(50,200);
+                    Gold = Random.Range(MaxGold-50, MaxGold);
                     break;
             }
             
         }
+
     }
 }

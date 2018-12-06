@@ -9,7 +9,7 @@ namespace TextRPG
         public int Energy { get; set; }
         public int MaxEnerngy{ get; set; }
         public int Attack { get; set; }
-        public int Defence { get; set; }
+        public int Defense { get; set; }
         public int Gold { get; set; }
         public Vector2 RoomIndex { get; set; }
         public List<string> Inventory { get; set; } = new List<string>();
@@ -17,7 +17,11 @@ namespace TextRPG
 
         public virtual void TakeDamage(int amount)
         {
-            Energy -= amount;
+            if (Energy-amount >=MaxEnerngy)
+                Energy = MaxEnerngy;
+            else 
+                Energy -= amount;
+
             if(Energy <= 0)
             {
                 Die();

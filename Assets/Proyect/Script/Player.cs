@@ -7,21 +7,25 @@ namespace TextRPG
 {
     public class Player : Character{
         
-        public int Floor { get; set; }
+        public static int Floor { get; set; }//tener cuidado porque si hay más de un jugador se peta unity
         public Room Room { get; set; }
-        
-        
-
+        public int StatCost { get; set; }
+        public int Turn { get; set; }
         public World world;
         [SerializeField] Encounter enconter;
-                                           // Use this for initialization
+
+        private void Awake()
+        {
+            Floor = 1;
+        }
         void Start () {
-            Floor = 0;
+            Turn = 0;
             MaxEnerngy = 30;
             Energy = 30;
             Attack = 6;
-            Defence = 1;
+            Defense = 1;
             Gold = 50;
+            StatCost = 50;
             Inventory = new List<string>();
             RoomIndex = new Vector2(0,0);
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
@@ -31,28 +35,27 @@ namespace TextRPG
 
         }
 
-        public void UpdateStats()
-        {
-            //en el futuro me gustaría saber a que enemigo he derrotado para según cual me de vida máxima, o ataque o defensa el enemigo está en la habitación Room
-            if (Gold - 50 > 0)
+        public void UpdateStats(int Stat)
+        {   
+            switch (Stat)
             {
-                Gold -= 50;
-                switch (Random.Range(0,3))
-                {
-                    case 0:
-                        TakeDamage(-10);
-                        Journal.Instance.Log("You heal 10 energy");
-                        break;
-                    case 1:
-                        Attack++;
-                        Journal.Instance.Log("Now you are stronger");
-                        break;
-                    case 2:
-                        Journal.Instance.Log("You learn how to defend yourself better");
-                        Defence++;
-                        break;
-                }
+                case 0:
+                    MaxEnerngy += 10;
+                    TakeDamage(-10);
+                    Journal.Instance.Log("Now you feel with more energy");
+                    break;
+                case 1:
+                    Attack++;
+                    Journal.Instance.Log("Now you are stronger");
+                    break;
+                case 2:
+                    Journal.Instance.Log("You learn how to defend yourself better");
+                    Defense++;
+                    break;       
             }
+            Gold -= StatCost;
+            StatCost += 10;
+            UIController.OnPlayerUpdateDesactivate(this);
         }
 
         void LateUpdate()
@@ -67,6 +70,9 @@ namespace TextRPG
             {
                 return;
             }
+            Turn++;
+            if (Turn % 10 == 0)
+                Journal.Instance.Empty();
 
             if (direction == 0 && RoomIndex.y > 0)
             {

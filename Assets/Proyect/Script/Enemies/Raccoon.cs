@@ -12,7 +12,7 @@ namespace TextRPG
             Description = "Evil Raccoon";
             Energy = 10;
             Attack = 3;
-            Defence = 5;
+            Defense = 5;
             Gold = 10;
             Inventory.Add("R");
         }
