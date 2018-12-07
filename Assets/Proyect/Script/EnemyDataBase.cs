@@ -36,25 +36,19 @@ namespace TextRPG
         {
             foreach (Enemy enemy in GetComponents<Enemy>())
             {
-                switch (Random.Range(0, 3))
+                switch (Random.Range(0, 2))
                 {
                     case 0:
                         enemy.Attack+=5;
-                        enemy.Defense += 5;
+                        enemy.Defense += 0;
                         enemy.Energy += 10;
                         enemy.MaxEnerngy += 10;
                         break;
                     case 1:
-                        enemy.Attack += 7;
-                        enemy.Defense+=7;
-                        enemy.Energy += 5;
-                        enemy.MaxEnerngy += 5;
-                        break;
-                    case 2:
-                        enemy.Attack += 3;
-                        enemy.Defense += 3;
-                        enemy.Energy += 20;
-                        enemy.MaxEnerngy += 20;
+                        enemy.Attack += 0;
+                        enemy.Defense += 5;
+                        enemy.Energy += 10;
+                        enemy.MaxEnerngy += 10;
                         break;
                 }
                 enemy.Gold += Random.Range(10,30); ;

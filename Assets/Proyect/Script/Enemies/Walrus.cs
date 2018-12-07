@@ -9,8 +9,8 @@ namespace TextRPG
         private void Start()
         {
             Description = "cute Walrus";
-            Energy = 15;
-            MaxEnerngy = 15;
+            Energy = 10;
+            MaxEnerngy = 10;
             Attack = 7;
             Defense = 0;
             Gold = 10;

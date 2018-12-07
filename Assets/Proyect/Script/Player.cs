@@ -20,12 +20,12 @@ namespace TextRPG
         }
         void Start () {
             Turn = 0;
-            MaxEnerngy = 30;
-            Energy = 30;
-            Attack = 6;
-            Defense = 1;
+            MaxEnerngy = 50;
+            Energy = 50;
+            Attack = 5;
+            Defense = 0;
             Gold = 50;
-            StatCost = 50;
+            StatCost = 10;
             Inventory = new List<string>();
             RoomIndex = new Vector2(0,0);
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
@@ -41,8 +41,8 @@ namespace TextRPG
             {
                 case 0:
                     MaxEnerngy += 10;
-                    TakeDamage(-10);
-                    Journal.Instance.Log("Now you feel with more energy");
+                    TakeDamage(-15);
+                    Journal.Instance.Log("Now you feel with more energy and restored 5 energy");
                     break;
                 case 1:
                     Attack++;

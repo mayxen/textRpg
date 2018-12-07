@@ -8,11 +8,11 @@ namespace TextRPG
     {
         private void Start()
         {
-            MaxEnerngy = 10;
+            MaxEnerngy = 5;
             Description = "Evil Raccoon";
-            Energy = 10;
-            Attack = 3;
-            Defense = 5;
+            Energy = 5;
+            Attack = 2;
+            Defense = 4;
             Gold = 10;
             Inventory.Add("R");
         }

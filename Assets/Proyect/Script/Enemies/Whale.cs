@@ -9,8 +9,8 @@ namespace TextRPG
         private void Start()
         {
             Description = "BIG Whale";
-            Energy = 40;
-            MaxEnerngy = 40;
+            Energy = 20;
+            MaxEnerngy = 20;
             Attack = 3;
             Defense = 3;
             Gold = 10;

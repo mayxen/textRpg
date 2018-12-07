@@ -61,18 +61,18 @@ namespace TextRPG
             player.Room.Empty =true;
             if (chest.Trap)
             {
-                player.TakeDamage(5);
-                Journal.Instance.Log(string.Format("<color=#59ffa1>It was a trap, you took {0} damage</color>",5));
+                player.TakeDamage(5*Player.Floor);
+                Journal.Instance.Log(string.Format("<color=#59ffa1>It was a trap, you took {0} damage</color>", 5 * Player.Floor));
             }
             else if(chest.Heal)
             {
-                Journal.Instance.Log(string.Format("<color=#59ffa1>It was a heal, you heal {0} damage</color>", 5));
-                player.TakeDamage(-5);
+                Journal.Instance.Log(string.Format("<color=#59ffa1>It was a heal, you heal {0} damage</color>", 5 * Player.Floor));
+                player.TakeDamage(-5*Player.Floor);
             }
             else if (chest.Enemy)
             {
                 player.Room.Enemy = chest.Enemy;
-                Journal.Instance.Log(string.Format("<color=#59ffa1>Oh no! The chest contained a {0}</color>", Enemy.Description));
+                Journal.Instance.Log(string.Format("<color=#59ffa1>Oh no! The chest contained a {0}</color>", chest.Enemy.Description));
                 player.Room.Chest = null;
                 player.Room.Empty = false;
                 
@@ -95,17 +95,21 @@ namespace TextRPG
 
         public void Attack()
         {
-            int playerDamageAmount =CalculateDamage(player.Attack,Enemy.Defense);
+            int playerDamageAmount = CalculateDamage(player.Attack, Enemy.Defense);
             int enemyDamageAmount = CalculateDamage(Enemy.Attack,player.Defense);
-            Journal.Instance.Log(string.Format("<color=#59ffa1>You attacked, dealing <b>{0}</b> damage!</color>", playerDamageAmount));
-            Journal.Instance.Log(string.Format("<color=#59ffa1>The enemy attacked, dealing <b>{0}</b> damage!</color>", enemyDamageAmount));
-            player.TakeDamage(enemyDamageAmount<0?0:enemyDamageAmount);
-            Enemy.TakeDamage(playerDamageAmount<0?0:playerDamageAmount);
+            Journal.Instance.Log(string.Format("You attacked, dealing <color=#c62525> <b>{0}</b></color> damage!", playerDamageAmount < 0 ? 0 : playerDamageAmount));
+            
+            if (Enemy.Energy-playerDamageAmount > 0)
+            {
+                Journal.Instance.Log(string.Format("The enemy attacked, dealing <color=#c62525><b>{0}</b></color> damage!", enemyDamageAmount < 0 ? 0 : enemyDamageAmount));
+                player.TakeDamage(enemyDamageAmount < 0 ? 0 : enemyDamageAmount);
+            }
+            Enemy.TakeDamage(playerDamageAmount);
         }
 
         int CalculateDamage(int attack, int defense)
         {
-            return attack - (attack * ((defense * 100)/(attack*100)));
+            return (int)(attack - (5*Player.Floor* ((defense * 100)/((5*Player.Floor)*100f))));
         }
 
         public void Flee()
@@ -133,6 +137,8 @@ namespace TextRPG
             Map.Instance.ResetColors();
             Map.Instance.ChangeColor(player.RoomIndex, Color.red);
             player.Room.Exit = false;
+            player.Room.Empty = true;
+            player.TakeDamage(-20);
             
         }
 

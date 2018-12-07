@@ -64,7 +64,7 @@ namespace TextRPG
             {
                 updateStat.gameObject.SetActive(true);
 
-                updateStat.GetComponentsInChildren<Text>()[0].text = string.Format("Increase 10 your maximun energy\n cost {0}",player.StatCost);
+                updateStat.GetComponentsInChildren<Text>()[0].text = string.Format("Increase 10 your maximun energy and restore 5 energy\n cost {0}",player.StatCost);
                 updateStat.GetComponentsInChildren<Text>()[1].text = string.Format("Increase 1 your attack\n cost {0}", player.StatCost);
                 updateStat.GetComponentsInChildren<Text>()[2].text = string.Format("Increase 1 your defense\n cost {0}", player.StatCost);
 
