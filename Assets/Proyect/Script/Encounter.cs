@@ -117,8 +117,9 @@ namespace TextRPG
             Journal.Instance.Empty();
             int enemyDamageAmount = Random.Range(0,((Enemy.Attack - player.Defense) < 0 ? 0 : Enemy.Attack - player.Defense)+1);
             player.TakeDamage(enemyDamageAmount);
+            Enemy.Energy = Enemy.MaxEnerngy;
             UIController.OnEnemyUpdate(null);
-            Journal.Instance.Log(string.Format("<color=#59ffa1>You flee the combat but you take <b>{0}</b> damage!</color>", enemyDamageAmount));
+            Journal.Instance.Log(string.Format("You flee the combat but you take <color=#c62525><b>{0}</b></color> damage!", enemyDamageAmount));
             player.Room.Enemy = null;
             player.Room.Empty = true;
             player.Investigate();
@@ -139,7 +140,6 @@ namespace TextRPG
             player.Room.Exit = false;
             player.Room.Empty = true;
             player.TakeDamage(-20);
-            
         }
 
         public void Loot()

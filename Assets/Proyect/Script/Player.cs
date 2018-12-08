@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace TextRPG
 {
@@ -156,6 +157,19 @@ namespace TextRPG
         public override void Die()
         {
             base.Die();
+            Energy = MaxEnerngy;
+            Attack = 5;
+            Defense = 5;
+            Gold = 50;
+            Turn = 0;
+            Floor = 1;
+            StatCost = 10;
+            Inventory = new List<string>();
+            RoomIndex = new Vector2(0, 0);
+            this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
+            this.Room.Empty = true;
+
+            SceneManager.LoadScene("GameOver");
         }
 
     }

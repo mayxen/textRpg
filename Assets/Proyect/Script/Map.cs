@@ -17,7 +17,7 @@ namespace TextRPG
                 Destroy(this.gameObject);
             else
                 Instance = this;
-
+            
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
@@ -27,8 +27,9 @@ namespace TextRPG
                     RoomsMap[x, y] = imageInstance;
                 }
             }
-            
-	    }
+            if(UIController.instance != null)
+                UIController.instance.GetObjectsNeeded();
+        }
 	
 	    public void ChangeColor(Vector2 RoomIndex,Color color)
         {

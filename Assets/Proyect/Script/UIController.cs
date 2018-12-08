@@ -7,7 +7,7 @@ namespace TextRPG
 {
     public class UIController : MonoBehaviour {
         [SerializeField]
-        Text playerStatText,enemyStatsText,playerInventoryText;
+        public Text playerStatText,enemyStatsText,playerInventoryText;
         [SerializeField]
         Image updateStat;
         
@@ -21,8 +21,31 @@ namespace TextRPG
         public static OnEnemyUpdateHandler OnEnemyUpdate;
 
         public delegate void OnPlayerUpdateStatHandler();
-        
+        public static UIController instance = null;
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+            {
+                Destroy(transform.gameObject);
+            }
+                
+            DontDestroyOnLoad(transform.gameObject);
+            GetObjectsNeeded();
 
+
+        }
+        public void GetObjectsNeeded()
+        {
+            playerStatText = GameObject.Find("PlayerText").GetComponent<Text>();
+            enemyStatsText = GameObject.Find("EnemyText").GetComponent<Text>();
+            playerInventoryText = GameObject.Find("Inventory").GetComponent<Text>();
+            if(GameObject.Find("UpdateStatButtons"))
+                updateStat = GameObject.Find("UpdateStatButtons").GetComponent<Image>();
+            if(updateStat != null)
+                updateStat.gameObject.SetActive(false);
+        }
         void Start()
         {
             OnPlayerStatChange += UpdatePlayerStats;
@@ -30,12 +53,11 @@ namespace TextRPG
             OnEnemyUpdate += UpdateEnemyStats;
             OnPlayerUpdateActivate += ActivateUpdateStat;
             OnPlayerUpdateDesactivate += DesactivateUpdateStat;
-            playerInventoryText.text = "";
-            enemyStatsText.text = "";
         }
 
         public void UpdatePlayerStats(Player player)
         {
+            
             playerStatText.text = string.Format("Player: {0} energy, {1} attack,{2} Defense, {3} gold, Room: {4}",player.Energy,player.Attack,player.Defense,player.Gold,player.Room.RoomIndex);
         }
 

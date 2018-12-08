@@ -20,11 +20,12 @@ namespace TextRPG
 
             else
                 Instance = this;
-
+            
             foreach (Enemy enemy in GetComponents<Enemy>())
             {
                 Enemies.Add(enemy);
             }
+            
         }
 
         public Enemy GetRandomEnemy()

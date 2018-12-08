@@ -19,6 +19,7 @@ namespace TextRPG
                 Destroy(this.gameObject);
             else
                 Instance = this;
+            
         }
 
         public void Log(string text)
