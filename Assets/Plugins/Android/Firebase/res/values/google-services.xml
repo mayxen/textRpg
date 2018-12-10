@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://climb-dungeon.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">766102671260</string>
+  <string name="google_storage_bucket" translatable="false">climb-dungeon.appspot.com</string>
+  <string name="project_id" translatable="false">climb-dungeon</string>
+  <string name="google_api_key" translatable="false">AIzaSyDN8XK0EwCFjUnrLMP199nnfCvy8BPnIRI</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDN8XK0EwCFjUnrLMP199nnfCvy8BPnIRI</string>
+  <string name="google_app_id" translatable="false">1:766102671260:android:fd1fa44481e72349</string>
+  <string name="default_web_client_id" translatable="false">766102671260-ahria1onfkavcd4vtifohnk5r1qjv4gb.apps.googleusercontent.com</string>
+</resources>

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Firebase;
+using Firebase.Unity.Editor;
+using Firebase.Database;
 
 namespace TextRPG
 {
@@ -30,12 +33,37 @@ namespace TextRPG
             {
                 Destroy(transform.gameObject);
             }
-                
+            
             DontDestroyOnLoad(transform.gameObject);
             GetObjectsNeeded();
 
+            Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
+                var dependencyStatus = task.Result;
+                if (dependencyStatus == Firebase.DependencyStatus.Available)
+                {
+                    // Create and hold a reference to your FirebaseApp, i.e.
+                    //   app = Firebase.FirebaseApp.DefaultInstance;
+                    // where app is a Firebase.FirebaseApp property of your application class.
 
+                    // Set a flag here indicating that Firebase is ready to use by your
+                    // application.
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError(System.String.Format(
+                      "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
+                    // Firebase Unity SDK is not safe to use here.
+                }
+                FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://climb-dungeon.firebaseio.com/");
+                DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+                reference.Child("users").Child("1").SetValueAsync("45");
+
+
+            });
         }
+
+         
         public void GetObjectsNeeded()
         {
             playerStatText = GameObject.Find("PlayerText").GetComponent<Text>();
