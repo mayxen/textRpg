@@ -25,6 +25,8 @@ namespace TextRPG
 
         public delegate void OnPlayerUpdateStatHandler();
         public static UIController instance = null;
+        //la referencia a la base de datos
+        DatabaseReference reference;
         private void Awake()
         {
             if (instance == null)
@@ -55,11 +57,7 @@ namespace TextRPG
                     // Firebase Unity SDK is not safe to use here.
                 }
                 FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://climb-dungeon.firebaseio.com/");
-                DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
-
-                reference.Child("users").Child("1").SetValueAsync("45");
-
-
+                reference = FirebaseDatabase.DefaultInstance.RootReference;
             });
         }
 
@@ -98,8 +96,41 @@ namespace TextRPG
             //}
             
         }
+        
+        public void GetScoreFromDatabase(Text laderboard)
+        {
+            reference.Child("users").Child("1").GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("no entro porque no me sale de los putos huevos, un saludo ivan");
+                }
+                else if (task.IsCompleted)
+                {
+                    
+                    DataSnapshot snapshot = task.Result;
+                    SetScore.instance.SetText("El piso más alto escalado es: " +snapshot.Value);
+                }
+            });
+      
+        }
 
-
+        public void SetScoreToDatabase()
+        {
+            reference.Child("users").Child("1").GetValueAsync().ContinueWith(task => {
+                if (task.IsFaulted)
+                {
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    Debug.Log(Player.Floor > (int)snapshot.Value);
+                    if ((int)snapshot.Value < Player.Floor)
+                        reference.Child("users").Child("1").SetValueAsync(Player.Floor);
+                }
+            });
+        }
         public void UpdateEnemyStats(Enemy enemy)
         {
             if (enemy != null)
@@ -117,8 +148,6 @@ namespace TextRPG
                 updateStat.GetComponentsInChildren<Text>()[0].text = string.Format("Increase 10 your maximun energy and restore 5 energy\n cost {0}",player.StatCost);
                 updateStat.GetComponentsInChildren<Text>()[1].text = string.Format("Increase 1 your attack\n cost {0}", player.StatCost);
                 updateStat.GetComponentsInChildren<Text>()[2].text = string.Format("Increase 1 your defense\n cost {0}", player.StatCost);
-
-
             }
             
         }
