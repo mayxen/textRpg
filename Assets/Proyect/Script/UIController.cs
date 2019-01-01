@@ -10,9 +10,9 @@ namespace TextRPG
 {
     public class UIController : MonoBehaviour {
         [SerializeField]
-        public Text playerStatText,enemyStatsText,playerInventoryText;
+        Text playerEnergyText, playerAttackText, playerDefenseText, playerGoldText, enemyEnergyText , enemyAttackText, enemyDefenseText, enemyDescriptionText, playerInventoryText;
         [SerializeField]
-        Image updateStat;
+        Image updateStat,EnemyStuff;
         
         public delegate void OnPlayerUpdateHandler(Player player);
         public static OnPlayerUpdateHandler OnPlayerStatChange;
@@ -64,13 +64,23 @@ namespace TextRPG
          
         public void GetObjectsNeeded()
         {
-            playerStatText = GameObject.Find("PlayerText").GetComponent<Text>();
-            enemyStatsText = GameObject.Find("EnemyText").GetComponent<Text>();
-            playerInventoryText = GameObject.Find("Inventory").GetComponent<Text>();
-            if(GameObject.Find("UpdateStatButtons"))
+            playerEnergyText = GameObject.Find("EnergyText").GetComponent<Text>();
+            playerAttackText = GameObject.Find("attackText").GetComponent<Text>();
+            playerDefenseText = GameObject.Find("DefenseText").GetComponent<Text>();
+            playerGoldText = GameObject.Find("GoldText").GetComponent<Text>();
+            enemyDescriptionText = GameObject.Find("EnemyDescription").GetComponent<Text>();
+            enemyEnergyText = GameObject.Find("EnemyEnergy").GetComponent<Text>();
+            enemyAttackText = GameObject.Find("EnemyAttack").GetComponent<Text>();
+            enemyDefenseText = GameObject.Find("EnemyDefense").GetComponent<Text>();
+            //playerInventoryText = GameObject.Find("Inventory").GetComponent<Text>();
+            if (GameObject.Find("UpdateStatButtons"))
                 updateStat = GameObject.Find("UpdateStatButtons").GetComponent<Image>();
             if(updateStat != null)
                 updateStat.gameObject.SetActive(false);
+            if (GameObject.Find("EnemyStuff"))
+                EnemyStuff = GameObject.Find("EnemyStuff").GetComponent<Image>();
+            if (EnemyStuff != null)
+                EnemyStuff.gameObject.SetActive(false);
         }
         void Start()
         {
@@ -83,13 +93,15 @@ namespace TextRPG
 
         public void UpdatePlayerStats(Player player)
         {
-            
-            playerStatText.text = string.Format("Player: {0} energy, {1} attack,{2} Defense, {3} gold, Room: {4}",player.Energy,player.Attack,player.Defense,player.Gold,player.Room.RoomIndex);
+            playerEnergyText.text = ""+player.Energy;
+            playerAttackText.text = "" + player.Attack;
+            playerDefenseText.text = "" + player.Defense;
+            playerGoldText.text = "" + player.Gold;
         }
 
         public void UpdatePlayerInventory(Player player)
         {
-            playerInventoryText.text = "En desarrollo crack ";
+            //playerInventoryText.text = "En desarrollo crack ";
             //foreach (string item in player.Inventory)
             //{
             //    playerInventoryText.text += item+"/ ";
@@ -134,9 +146,22 @@ namespace TextRPG
         public void UpdateEnemyStats(Enemy enemy)
         {
             if (enemy != null)
-                enemyStatsText.text = string.Format("{3}:\n{0} energy, {1} attack,{2} Defense", enemy.Energy, enemy.Attack, enemy.Defense, enemy.Description);
+            {
+                EnemyStuff.gameObject.SetActive(true);
+                enemyDescriptionText.text = "" + enemy.Description;
+                enemyEnergyText.text = ""+ enemy.Energy;
+                enemyAttackText.text = ""+ enemy.Attack;
+                enemyDefenseText.text = ""+ enemy.Defense;
+            }
             else
-                enemyStatsText.text = "";
+            {
+                EnemyStuff.gameObject.SetActive(false);
+                enemyDescriptionText.text = "";
+                enemyEnergyText.text="";
+                enemyAttackText.text = "";
+                enemyDefenseText.text = "";
+            }
+                
         }
 
         public void ActivateUpdateStat(Player player)
@@ -144,7 +169,6 @@ namespace TextRPG
             if (player.Gold - player.StatCost >= 0)
             {
                 updateStat.gameObject.SetActive(true);
-
                 updateStat.GetComponentsInChildren<Text>()[0].text = string.Format("Increase 10 your maximun energy and restore 5 energy\n cost {0}",player.StatCost);
                 updateStat.GetComponentsInChildren<Text>()[1].text = string.Format("Increase 1 your attack\n cost {0}", player.StatCost);
                 updateStat.GetComponentsInChildren<Text>()[2].text = string.Format("Increase 1 your defense\n cost {0}", player.StatCost);
