@@ -26,6 +26,8 @@ namespace TextRPG
             Attack = 5;
             Defense = 0;
             Gold = 50;
+            Velocity = 10;
+            Agility = 3;
             StatCost = 10;
             Inventory = new List<string>();
             RoomIndex = new Vector2(0,0);

@@ -12,9 +12,11 @@ namespace TextRPG
         public int Defense { get; set; }
         public int Gold { get; set; }
         public Vector2 RoomIndex { get; set; }
+        public int Agility { get; set; }
+        public int Velocity { get; set; }
         public List<string> Inventory { get; set; } = new List<string>();
 
-
+        
         public virtual void TakeDamage(int amount)
         {
             if (Energy-amount >=MaxEnerngy)

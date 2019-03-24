@@ -5,8 +5,6 @@ using UnityEngine;
 
 namespace TextRPG
 {
-
-
     public class EnemyDataBase : MonoBehaviour {
         
 
