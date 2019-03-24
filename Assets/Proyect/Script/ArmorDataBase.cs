@@ -22,6 +22,7 @@ namespace TextRPG
             foreach (Armor armor in GetComponents<Armor>())
             {
                 Armors.Add(armor);
+                
             }
         }
 

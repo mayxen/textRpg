@@ -6,7 +6,7 @@ namespace TextRPG
 {
     public class ItemDataBase : MonoBehaviour
     {
-        public List<string> Items { get; set; } = new List<string>();
+        public List<Consumable> Consumables { get; set; } = new List<Consumable>();
         public static ItemDataBase Instance{ get; private set; }
 
         void Awake()
@@ -16,8 +16,21 @@ namespace TextRPG
             else
                 Instance = this;
 
-            
-            Items.Add("The real nothing");
+            foreach (Consumable consumable in GetComponents<Consumable>())
+            {
+                Consumables.Add(consumable);
+            }
+
+        }
+
+        public Consumable GetConsumable(int id)
+        {
+            return Consumables.Find(i => i.Id == id);
+        }
+
+        public Consumable GetConsumable(string name)
+        {
+            return Consumables.Find(i => i.Name == name);
         }
     }
 }

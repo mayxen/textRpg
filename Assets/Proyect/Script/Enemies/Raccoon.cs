@@ -14,7 +14,7 @@ namespace TextRPG
             Attack = 2;
             Defense = 4;
             Gold = 10;
-            Inventory.Add("R");
+            
             Velocity = 10;
             Agility = 3;
         }

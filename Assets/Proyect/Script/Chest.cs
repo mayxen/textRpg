@@ -6,7 +6,7 @@ namespace TextRPG
 {
     public class Chest
     {
-        public string Item { get; set; }
+        public Consumable Item { get; set; }
         public int Gold { get; set; }
         public bool Trap { get; set; }
         public bool Heal { get; set; }
@@ -28,8 +28,8 @@ namespace TextRPG
                     Enemy = EnemyDataBase.Instance.GetRandomEnemy();
                     break;
                 default:
-                    int itemToAdd = Random.Range(0,ItemDataBase.Instance.Items.Count);
-                    Item = ItemDataBase.Instance.Items[itemToAdd];
+                    int itemToAdd = Random.Range(0,ItemDataBase.Instance.Consumables.Count);
+                    Item = ItemDataBase.Instance.GetConsumable(itemToAdd);
                     Gold = Random.Range(MaxGold-50, MaxGold);
                     break;
             }

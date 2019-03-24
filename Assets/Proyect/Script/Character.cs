@@ -14,7 +14,7 @@ namespace TextRPG
         public Vector2 RoomIndex { get; set; }
         public int Agility { get; set; }
         public int Velocity { get; set; }
-        public List<string> Inventory { get; set; } = new List<string>();
+        public List<Item> Inventory { get; set; } = new List<Item>();
 
         
         public virtual void TakeDamage(int amount)

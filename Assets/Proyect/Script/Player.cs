@@ -29,7 +29,7 @@ namespace TextRPG
             Velocity = 10;
             Agility = 3;
             StatCost = 10;
-            Inventory = new List<string>();
+            Inventory = new List<Item>();
             RoomIndex = new Vector2(0,0);
             this.Room = world.Dungeon[(int)RoomIndex.x, (int)RoomIndex.y];
             this.Room.Empty= true;
@@ -141,7 +141,7 @@ namespace TextRPG
             }
         }
 
-        public void AddItem(string item)
+        public void AddItem(Item item)
         {
             
             //Journal.Instance.Log("You were given item: "+item);
