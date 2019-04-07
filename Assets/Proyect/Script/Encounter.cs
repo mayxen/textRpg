@@ -95,8 +95,8 @@ namespace TextRPG
 
         public void Attack()
         {
-            int playerDamageAmount = CalculateDamage(player.Attack, Enemy.Defense);
-            int enemyDamageAmount = CalculateDamage(Enemy.Attack,player.Defense);
+            int playerDamageAmount = CalculateDamage(player.Attack, Enemy.Defense, player.weapon.Attack, Enemy.armor.Defense);
+            int enemyDamageAmount = CalculateDamage(Enemy.Attack,player.Defense,Enemy.weapon.Attack,player.armor.Defense);
             Journal.Instance.Log(string.Format("You attacked, dealing <color=#c62525> <b>{0}</b></color> damage!", playerDamageAmount < 0 ? 0 : playerDamageAmount));
             
             if (Enemy.Energy-playerDamageAmount > 0)
@@ -107,9 +107,9 @@ namespace TextRPG
             Enemy.TakeDamage(playerDamageAmount);
         }
 
-        int CalculateDamage(int attack, int defense)
+        int CalculateDamage(int attack, int defense,int weaponDamage,int armorDefense)
         {
-            return (int)(attack - (5*Player.Floor* ((defense * 100)/((5*Player.Floor)*100f))));
+            return Mathf.Max(attack - defense, 0) + Mathf.Max(weaponDamage-armorDefense,0) ; 
         }
 
         public void Flee()

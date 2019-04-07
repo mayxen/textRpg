@@ -16,12 +16,11 @@ namespace TextRPG
 
             else
                 Instance = this;
-
             foreach (Weapon weapon in GetComponents<Weapon>())
             {
                 Weapons.Add(weapon);
+                Debug.Log(weapon.Name);
             }
-
         }
 
         public Weapon GetWeapon(int id)

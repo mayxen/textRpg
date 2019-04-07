@@ -20,6 +20,8 @@ namespace TextRPG
             Floor = 1;
         }
         void Start () {
+            armor = ArmorDataBase.Instance.GetArmor(0);
+            weapon = WeaponDataBase.Instance.GetWeapon(1);
             Turn = 0;
             MaxEnerngy = 50;
             Energy = 50;

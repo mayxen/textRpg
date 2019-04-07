@@ -19,8 +19,8 @@ namespace TextRPG
             foreach (Consumable consumable in GetComponents<Consumable>())
             {
                 Consumables.Add(consumable);
+                Debug.Log(consumable.Name);
             }
-
         }
 
         public Consumable GetConsumable(int id)

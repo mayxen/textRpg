@@ -8,6 +8,8 @@ namespace TextRPG
     {
         private void Start()
         {
+            armor = ArmorDataBase.Instance.GetArmor(0);
+            weapon = WeaponDataBase.Instance.GetWeapon(0);
             Description = "BIG Whale";
             Energy = 20;
             MaxEnerngy = 20;

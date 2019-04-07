@@ -18,12 +18,13 @@ namespace TextRPG
 
             else
                 Instance = this;
-
             foreach (Armor armor in GetComponents<Armor>())
             {
                 Armors.Add(armor);
-                
+                Debug.Log(armor.Name);
+
             }
+
         }
 
         public Armor GetArmor(int id)

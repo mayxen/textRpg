@@ -9,7 +9,7 @@ namespace TextRPG
         // Start is called before the first frame update
         void Awake()
         {
-            Id = 0;
+            Id = 1;
             Name = "Heavy Armor";
             Description = "Its a heavy armor";
             Type = "heavy armor";

@@ -8,6 +8,8 @@ namespace TextRPG
     {
         private void Start()
         {
+            armor = ArmorDataBase.Instance.GetArmor(0);
+            weapon = WeaponDataBase.Instance.GetWeapon(0);
             MaxEnerngy = 5;
             Description = "Evil Raccoon";
             Energy = 5;

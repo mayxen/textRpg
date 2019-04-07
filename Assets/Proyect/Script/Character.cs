@@ -15,8 +15,9 @@ namespace TextRPG
         public int Agility { get; set; }
         public int Velocity { get; set; }
         public List<Item> Inventory { get; set; } = new List<Item>();
+        public Armor armor;
+        public Weapon weapon;
 
-        
         public virtual void TakeDamage(int amount)
         {
             if (Energy-amount >=MaxEnerngy)
