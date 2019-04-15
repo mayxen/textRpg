@@ -9,7 +9,7 @@ public class MovePlayer : MonoBehaviour
     void Update()
     {
         Vector3 direcction = new Vector3(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, Input.GetAxis("Vertical") * speed * Time.deltaTime);
-        transform.GetComponent<Rigidbody>().velocity = direcction;
+        transform.GetComponent<Rigidbody>().velocity += direcction;
         if(direcction != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(direcction);
     }
